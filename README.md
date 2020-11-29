@@ -1,4 +1,4 @@
-1. Create a mysql database explore and a table hashtag:
+1. Create a mysql database `explore` and a table `hashtag`:
 
   ```
   CREATE DATABASE explore;
