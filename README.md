@@ -8,11 +8,10 @@
   `id` int(11) NOT NULL,
   `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `createDate` datetime NOT NULL DEFAULT current_timestamp(),
-  `createBy` int(11) NOT NULL
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-  INSERT INTO `hashtag` (`id`, `name`, `createDate`, `createBy`) VALUES
-  (1, 'food', '2020-11-28 22:16:07', 0);
+  INSERT INTO `hashtag` (`id`, `name`, `createDate`) VALUES
+  (1, 'food', '2020-11-28 22:16:07');
 
   ALTER TABLE `hashtag`
   ADD PRIMARY KEY (`id`);
