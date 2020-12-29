@@ -7,7 +7,7 @@
   CREATE TABLE `hashtag` (
   `id` int(11) NOT NULL,
   `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `createDate` datetime NOT NULL DEFAULT current_timestamp(),
+  `createDate` datetime NOT NULL DEFAULT current_timestamp()
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
   INSERT INTO `hashtag` (`id`, `name`, `createDate`) VALUES
