@@ -1,8 +1,8 @@
 1. Create a mysql database `explore` and a table `hashtag`:
 
   ```
-  CREATE DATABASE explore;
-  USE DATABASE explore;
+  CREATE DATABASE `explore`;
+  USE `explore`;
 
   CREATE TABLE `hashtag` (
   `id` int(11) NOT NULL,
