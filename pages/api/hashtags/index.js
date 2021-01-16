@@ -8,7 +8,7 @@ module.exports = async (req, res) => {
   const hashtags = await db.query(escape`
       SELECT *
       FROM hashtag
-      ORDER BY id
+      ORDER BY name
       LIMIT ${(page - 1) * limit}, ${limit}
     `);
   const count = await db.query(escape`
