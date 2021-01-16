@@ -1,24 +1,23 @@
 1. Create a mysql database `explore` and a table `hashtag`:
 
-  ```
-  CREATE DATABASE `explore`;
-  USE `explore`;
+```
+CREATE DATABASE `explore`;
+USE `explore`;
 
-  CREATE TABLE `hashtag` (
-  `id` int(11) NOT NULL,
-  `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `createDate` datetime NOT NULL DEFAULT current_timestamp()
-  ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+CREATE TABLE `hashtag` (
+`name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+`numPost` int(12) NOT NULL,
+`top9PostId` varchar(50) COLLATE utf8_unicode_ci,
+`createDate` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-  INSERT INTO `hashtag` (`id`, `name`, `createDate`) VALUES
-  (1, 'food', '2020-11-28 22:16:07');
+INSERT INTO `hashtag` ( `name`, `numPost` ,`createDate`) VALUES
+('food', 1, '2020-11-28 22:16:07');
 
-  ALTER TABLE `hashtag`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE `hashtag`
+ADD PRIMARY KEY (`name`);
+```
 
-  ALTER TABLE `hashtag`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-  ```
 3. Clone this repository
 4. Run `yarn` to install the dependencies
 5. Once the dependencies are installed, run `yarn dev` to start the dev server on `localhost:3000`
