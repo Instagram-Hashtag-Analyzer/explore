@@ -9,8 +9,18 @@ import Suggestion, { getHitLinkProps } from './suggestion';
 import NoResults from './no-results';
 import Container from '../container';
 
-function renderSuggestion(hit) {
-  return <Suggestion hit={hit} />;
+function InputContainer(props) {
+  return (
+    <div>
+      {props.text.map(input => (
+        <Input input={input} />
+      ))}
+    </div>
+  );
+}
+
+function Input(props) {
+  return <div>{props.input}</div>;
 }
 
 function AutoComplete({
@@ -24,6 +34,7 @@ function AutoComplete({
   onRouteChange
 }) {
   const [inputValue, setValue] = useState('');
+  const [inputResult, setResult] = useState(['food', 'heat']);
   const [hasFocus, setFocus] = useState(false);
   const textInput = useRef(null);
   const router = useRouter();
@@ -102,57 +113,34 @@ function AutoComplete({
     }
   }, [router.asPath]);
 
+  const editSearchTerm = e => {
+    setValue(e.target.value);
+  };
+
+  const dynamicSearch = () => {
+    return inputResult.filter(result => result.toLowerCase().includes(inputValue.toLowerCase()));
+  };
+
   return (
     <>
       <label ref={textInput} className={cn('input-container', { focused: hasFocus })}>
         <span className="icon">
           <SearchIcon />
         </span>
-
-        <AutoSuggest
-          id={id}
-          inputProps={inputProps}
-          suggestions={hits}
-          renderSuggestion={renderSuggestion}
-          renderSuggestionsContainer={renderSuggestionsContainer}
-          onSuggestionsFetchRequested={({ value }) => {
-            if (value && onSearchStart) {
-              onSearchStart();
-            }
-            // Call onSearchClear if the input becomes empty, even if it still has focus
-            if (!value && inputValue && onSearchClear) {
-              onSearchClear();
-            }
-            refine(value);
-          }}
-          onSuggestionsClearRequested={() => {
-            // On mobile, only clear Algolia suggestions if the input is empty
-            if (!isMobile || !inputValue) {
-              if (onSearchClear) onSearchClear();
-              refine();
-            }
-          }}
-          onSuggestionSelected={(e, { suggestion, method }) => {
-            if (method === 'enter') {
-              const { href, as } = getHitLinkProps(suggestion);
-              router.push(href, as);
-            }
-          }}
-          getSuggestionValue={() => {
-            if (!isMobile) return inputValue;
-
-            // When a suggestion is selected, close the search before the page navigation
-            if (onRouteChange) onRouteChange();
-            clearAllBodyScrollLocks();
-
-            return '';
-          }}
-          alwaysRenderSuggestions={isMobile}
-          focusInputOnSuggestionClick={false}
-          highlightFirstSuggestion
-        />
+        <input className="no-border" value={inputValue} onChange={editSearchTerm} />
+        {/* <InputContainer text={dynamicSearch()}/> */}
 
         <style jsx>{`
+          .no-border {
+            border: none;
+            width: 100%;
+          }
+          .no-border:hover {
+            outline: none;
+          }
+          .no-border:focus {
+            outline: none;
+          }
           .input-container {
             width: 100%;
             height: 2.5rem;
