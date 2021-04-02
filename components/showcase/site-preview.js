@@ -15,8 +15,11 @@ export default withRouter(
       if (ev.target.nodeName === 'A') {
         return;
       }
-      const item = this.props.siteData.internalUrl;
-      Router.push(`/showcase/[item]`, `/showcase/${item}`);
+      const item = ev.target.id;
+      Router.push({
+        pathname: `/search/details`,
+        query: { item: item }
+      });
     };
 
     handleIntersect = entry => {
@@ -47,7 +50,10 @@ export default withRouter(
             >
               <div className="content" ref={el => (this.previewEl = el)}>
                 <div className="preview" onClick={this.loadDetail}>
-                  <h2 className="hashtag"> #{siteData.name} </h2>
+                  <h2 className="hashtag" id={siteData.name}>
+                    {' '}
+                    #{siteData.name}{' '}
+                  </h2>
                   <div className="shadow">
                     <div className="info">
                       <h3 className={highlighted && !isTablet ? 'f2' : 'f4'}>
